@@ -1,5 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+import todos from './todos';
+import Header from './components/Header';
+import Todo from './components/Todo';
 /*
 const title = React.createElement('h1', null, 'React Todo');
 const subtitle = React.createElement('p', {className: 'subtitle'}, 'Приложение на React');
@@ -30,41 +34,28 @@ const dom = ReactDOM.render(React.createElement(App), document.getElementById('r
 function App(props) {
   return (
     <main>
-      <header>
-        <h1>{props.title}</h1>
-      </header>
+      <Header title={props.title} />
 
       <section className='todo-list'>
-        <div className='todo completed'>
-          <button className='checkbox icon'>
-            <i className='material-icons'>check_box</i>
-          </button>
-          <button className='delete icon'>
-            <i className='material-icons'>delete</i>
-          </button>
-          <span className='todo-title'>Изучить JavaScript</span>
-        </div>
-
-        <div className='todo'>
-          <button className='checkbox icon'>
-            <i className='material-icons'>check_box_outline_blank</i>
-          </button>
-          <button className='delete icon'>
-            <i className='material-icons'>delete</i>
-          </button>
-          <span className='todo-title'>Изучить React</span>
-        </div>
+        {props.todos.map(todo =>
+          <Todo key={todo.id} title={todo.title} completed={todo.completed} />)
+        }
       </section>
     </main>
   );
 }
 
 App.propTypes = {
-  title: React.PropTypes.string/*.isRequired*/
+  title: React.PropTypes.string,
+  todos: React.PropTypes.arrayOf(React.PropTypes.shape({
+    id: React.PropTypes.number.isRequired,
+    title: React.PropTypes.string.isRequired,
+    completed: React.PropTypes.bool.isRequired
+  })).isRequired /*массив объектов, можно отправить просто  array или arrayOf(React.PropTypes.object)*/
 };
 
 App.defaultProps = {
   title: 'React Todo'
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App todos={todos}/>, document.getElementById('root'));
