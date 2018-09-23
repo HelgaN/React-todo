@@ -3,9 +3,14 @@ import Checkbox from './Checkbox';
 import Button from './Button';
 
 function Todo(props) {
+
+  function handleChange() {
+    props.onStatusChange(props.id);
+  }
+
   return (
     <div className={`todo${props.completed ? ' completed' : ''}`}>
-      <Checkbox initiallyChecked={props.completed}/* checked = {props.completed}*/ />
+      <Checkbox checked={props.completed} onChange={handleChange} />
 
       <span className='todo-title'>{props.title}</span>
 
@@ -17,7 +22,8 @@ function Todo(props) {
 
 Todo.propTypes = {
   title: React.PropTypes.string.isRequired,
-  completed: React.PropTypes.bool.isRequired
+  completed: React.PropTypes.bool.isRequired,
+  onStatusChange: React.PropTypes.func.isRequired
 };
 
 export default Todo;
