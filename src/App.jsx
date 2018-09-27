@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import todos from './todos';
 import Header from './components/Header';
 import Todo from './components/Todo';
+import Form from './components/Form';
 /*
 const title = React.createElement('h1', null, 'React Todo');
 const subtitle = React.createElement('p', {className: 'subtitle'}, 'Приложение на React');
@@ -41,7 +42,13 @@ class App extends React.Component {
     };
 
     this.handleStatusChange = this.handleStatusChange.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  nextId() {
+    this._nextId = this._nextId || 4;
+    return this._nextId++;
   }
 
   handleStatusChange(id) {
@@ -54,6 +61,18 @@ class App extends React.Component {
     });
 
     this.setState({ todos: todos});   // обновляем состояние
+  }
+
+  handleAdd(title) {
+    let todo = {
+      id: this.nextId(),
+      title,      // тоже самое, что и title: title
+      completed: false
+    };
+
+    let todos = [...this.state.todos, todo];
+
+    this.setState({ todos });     // обновляем состояние
   }
 
   handleDelete(id) {
@@ -78,6 +97,8 @@ class App extends React.Component {
            />)
           }
         </section>
+
+        <Form onAdd={this.handleAdd} />
       </main>
     );
   }

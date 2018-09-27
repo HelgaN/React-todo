@@ -1,5 +1,5 @@
 import React from 'react';
-import Stats from './stats';
+import Stats from './Stats';
 
 function Header(props) {
   return (
