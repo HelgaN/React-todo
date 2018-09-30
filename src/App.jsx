@@ -44,6 +44,7 @@ class App extends React.Component {
     this.handleStatusChange = this.handleStatusChange.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
 
   nextId() {
@@ -81,6 +82,17 @@ class App extends React.Component {
     this.setState({ todos: todos }); // обновляем состояние
   }
 
+  handleEdit(id, title) {
+    let todos = this.state.todos.map(todo => {
+      if(todo.id === id) {
+        todo.title = title;
+      }
+      return todo;
+    });
+
+    this.setState({ todos });
+  }
+
   render () {
     return (
       <main>
@@ -93,7 +105,8 @@ class App extends React.Component {
             title={todo.title}
             completed={todo.completed}
             onStatusChange={this.handleStatusChange}
-            onDelete = {this.handleDelete}
+            onDelete={this.handleDelete}
+            onEdit={this.handleEdit}
            />)
           }
         </section>
