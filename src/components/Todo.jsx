@@ -14,6 +14,35 @@ class Todo extends React.Component {
     this.handleSabmit = this.handleSabmit.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log("componentWillReceiveProps");
+    console.log("nextProps", nextProps);
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log("componentWillUpdate");
+    console.log("nextProps", nextProps);
+    console.log("nextState",  nextState);
+  }
+
+  shouldComponentUpdate(nextProps, nextSatate) {
+    console.log("shouldComponentUpdate");
+    console.log(nextProps);
+    console.log(nextSatate);
+    return true;
+  /*  return true; return false  при false компонент визуально не изменяется*/
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log("componentDidUpdate");
+    console.log("prevProps", prevProps);
+    console.log("prevState", prevState);
+  }
+
+  componentWillUnmount() {
+    console.log("componentWillUnmount");
+  }
+
   handleSabmit(event) {
     event.preventDefault();
 
@@ -47,6 +76,7 @@ class Todo extends React.Component {
   }
 
   render() {
+    console.log("render");
     return this.state.editing ? this.renderForm() : this.renderDisplay();
   }
 }
